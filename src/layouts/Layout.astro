@@ -1,9 +1,9 @@
 ---
-import Footer from '../components/Footer.astro';
-import Nav from '../components/Nav.astro';
+import Footer from "../components/Footer.astro";
+import Nav from "../components/Nav.astro";
 
 export interface Props {
-	title: string;
+  title: string;
 }
 
 const { title } = Astro.props;
@@ -11,61 +11,103 @@ const { title } = Astro.props;
 
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link href='https://fonts.googleapis.com/css?family=Cookie' rel='stylesheet'>
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<Nav pageName={title}/>
-		<div class="layout-content">
-			<slot />
-		</div>
-		<Footer/>
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Cookie"
+      rel="stylesheet"
+    />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <Nav pageName={title} />
+    <div class="layout-content">
+      <slot />
+    </div>
+    <Footer />
+    <style is:global>
+      :root {
+        --accent: 124, 58, 237;
+        --accent-gradient: linear-gradient(
+          45deg,
+          var(--c-blue),
+          var(--c-green)
+        );
+        --c-bg: #161b22;
+        --c-bg2: #293340;
+        --c-black: #05091e;
+        --c-blue: #46b4ff;
+        --c-gray: #90aab7;
+        --c-dark-gray: rgba(0, 0, 0, 0.4);
+        --c-ligth-gray: rgba(0, 0, 0, 0.1);
+        --c-green: #9ef2cb;
+        --c-pink: #ffb8d9;
+        --c-orange: #ffb7a3;
+        --c-yellow: #ffdace;
+        --c-white: #fff;
+      }
+      .button {
+        display: inline-block;
+        border: 3px solid currentColor;
+        padding: 0.5em 1em;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+      html,
+      body {
+        font-family: system-ui, sans-serif;
+        scroll-behavior: smooth;
+      }
+      code {
+        font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
+          DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      a {
+        all: unset;
+      }
+      .layout-content {
+        margin: 54px auto;
+      }
+      .button {
+        text-transform: uppercase;
+        border: 5px solid;
+        border-image: linear-gradient(45deg, var(--c-blue), var(--c-green)) 1;
+        transition: background-color 0.2s ease;
+        cursor: pointer;
+      }
+      .button:hover {
+        background: var(--c-ligth-gray);
+      }
+      h1 {
+        background-color: white;
+        background-image: linear-gradient(45deg, var(--c-green), var(--c-blue));
+        background-repeat: repeat;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        -moz-background-clip: text;
+        -moz-text-fill-color: transparent;
+        background-size: 200% 200%;
+        animation: gradient 4s ease infinite;
+      }
+
+      @keyframes gradient {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+    </style>
+  </body>
 </html>
-<style is:global>
-	:root {
-		--accent: 124, 58, 237;
-		--accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #da62c4 30%, white 60%);
-		--c-bg: #161b22;
-		--c-bg2: #293340;
-		--c-black: #05091e;
-		--c-blue: #46b4ff;
-		--c-gray: #90aab7;
-		--c-dark-gray: rgba(0,0,0,0.4);
-		--c-green: #9ef2cb;
-		--c-pink: #ffb8d9;
-		--c-orange: #ffb7a3;
-		--c-yellow: #ffdace;
-		--c-white: #fff;
-	}
-	.button {
-		display: inline-block;
-		border: 3px solid currentColor;
-		padding: 0.5em 1em;
-		font-weight: 700;
-		text-transform: uppercase;
-	}
-	html, body {
-		font-family: system-ui, sans-serif;
-		background-color: var(--c-bg2);
-	}
-	code {
-		font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-			Bitstream Vera Sans Mono, Courier New, monospace;
-	}
-	* { 
-		margin: 0; padding: 0; 
-	}
-	a{
-		all: unset;
-	}
-	.layout-content{
-		width: 800px;
-		margin: 5em auto;
-	}
-</style>

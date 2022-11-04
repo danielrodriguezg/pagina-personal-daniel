@@ -1,22 +1,57 @@
 ---
+import ExperiencesPreview from "../components/ExperiencesPreview.astro";
 import Layout from "../layouts/Layout.astro";
+import type { Experiencias } from "../types";
+
+const experiencias = await Astro.glob<Experiencias>("./experiencias/**/*.md");
+const actual = experiencias[0];
 ---
 
 <Layout title="Inicio">
-  <header>
-    <div class="main-title">
-      <div id="title"><h2>La pagina personal de</h2><h1>Daniel Rodriguez</h1></div>
-      <div id="tag">👨🏽‍💻 Desarrollador de Software Senior</div>
+  <div class="index">
+    <header>
+      <div class="main-title">
+        <div id="title">
+          <h2>La pagina personal de</h2><h1>Daniel Rodriguez</h1>
+        </div>
+        <div id="tag">👨🏽‍💻 Desarrollador de Software Senior</div>
+      </div>
+      <div class="scroll-msg">
+        <span class="flecha-scroll"></span><a href="#content"
+          >Scroll para seguir viendo</a
+        >
+      </div>
+    </header>
+    <div class="content" id="content">
+      <div class="about-section">
+        <p class="personal-description">
+          Hola mi nombre es Daniel Alejandro Rodriguez Gomez, soy desarrollador
+          Full Stack residido en Medellin, Colombia y llevo trabajando en mi
+          carrera durante más de 4 años.
+          <br />
+          Me esfuerzo dia a dia en aprender y aportar en el crecimiento de los procesos
+          internos de los proyectos que participo.
+          <br />
+          Me considero un entusiasta apasionado de la tecnología y busco crecer en
+          mi desarrollo personal dia a dia con amor y disciplina.
+          <br />
+          💕👨🏽‍💻
+        </p>
+        <a class="button" href="/acerca">Ver mas...</a>
+      </div>
+      <div class="experiences-section">
+        <h1>Experiencia Laboral</h1>
+        <ExperiencesPreview actual={actual} />
+      </div>
     </div>
-    <div class="scroll-msg"><span class="flecha-scroll"></span>Scroll para seguir viendo</div>
-  </header>
+  </div>
 </Layout>
 
 <script>
-    var tag = document.querySelector("#tag");
-    tag?.classList.add("active");
-    var title = document.querySelector("#title");
-    title?.classList.add("active");
+  var tag = document.querySelector("#tag");
+  tag?.classList.add("active");
+  var title = document.querySelector("#title");
+  title?.classList.add("active");
 </script>
 
 <style>
@@ -24,15 +59,16 @@ import Layout from "../layouts/Layout.astro";
     display: flex;
     align-items: center;
     justify-content: center;
-    height: calc(100vh - 10em);
+    height: calc(100vh - 54px);
     gap: 3em;
+    background-color: var(--c-bg2);
   }
-  #title{
+  #title {
     transform: translateY(-50px);
     opacity: 0;
     transition: 2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
   }
-  #title.active{
+  #title.active {
     transform: translateY(0);
     opacity: 1;
   }
@@ -42,30 +78,9 @@ import Layout from "../layouts/Layout.astro";
   .main-title h1 {
     font-weight: 800;
     font-size: 60px;
-    background-color: white;
-    background-image: linear-gradient(45deg, var(--c-green), var(--c-blue));
-    background-repeat: repeat;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -moz-background-clip: text;
-    -moz-text-fill-color: transparent;
-    background-size: 200% 200%;
-    animation: gradient 4s ease infinite;
   }
 
-  @keyframes gradient {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
-
-  #tag{
+  #tag {
     position: relative;
     --width: 0;
     width: var(--width);
@@ -74,17 +89,17 @@ import Layout from "../layouts/Layout.astro";
     transition: 1s ease;
     overflow-x: hidden;
     white-space: nowrap;
-  } 
+  }
 
-  #tag.active{
+  #tag.active {
     --width: 270px;
   }
 
-  #tag:hover{
+  #tag:hover {
     color: var(--c-black);
     background: var(--c-yellow);
   }
-  .scroll-msg{
+  .scroll-msg {
     color: var(--c-white);
     padding: 3em;
     width: 100px;
@@ -97,8 +112,31 @@ import Layout from "../layouts/Layout.astro";
     justify-content: center;
     transition: background-color 0.3s ease;
   }
-  .scroll-msg:hover{
-    background-color: var(--c-white);    
+  .scroll-msg a {
+    cursor: pointer;
+  }
+  .scroll-msg:hover {
+    background-color: var(--c-white);
     color: var(--c-black);
+  }
+  .index .content {
+    margin: 3em auto;
+    width: 800px;
+    scroll-snap-type: y mandatory;
+  }
+  .personal-description {
+    font-weight: 300;
+    font-size: 30px;
+    text-align: center;
+  }
+  .about-section .button{
+    margin: 3em 0;
+  }
+  .about-section, .experiences-section {
+    margin: 10em 0;
+    scroll-snap-align: start;
+  }
+  .about-section{
+    text-align: center;
   }
 </style>
